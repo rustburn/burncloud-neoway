@@ -19,7 +19,7 @@ services:
     environment:
       - NODE_ENV=production
     networks:
-      - sandbox-net
+      - burncloud-proxy
 
   # 本地容器化开发环境: 挂载代码并启用热更新 (通过 --profile dev 启动)
   youfang-sandbox-dev:
@@ -39,8 +39,9 @@ services:
     profiles:
       - dev
     networks:
-      - sandbox-net
+      - burncloud-proxy
 
 networks:
-  sandbox-net:
-    driver: bridge
+  burncloud-proxy:
+    name: burncloud-proxy
+    external: true
