@@ -1,0 +1,46 @@
+services:
+  # 生产环境服务: 基于 Alpine Nginx 托管高性能生产构建产物
+  youfang-sandbox:
+    container_name: youfang-sandbox
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    image: youfang-sandbox:latest
+    ports:
+      - "${PORT:-3000}:80"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget --spider -q http://localhost:80/healthz || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    environment:
+      - NODE_ENV=production
+    networks:
+      - sandbox-net
+
+  # 本地容器化开发环境: 挂载代码并启用热更新 (通过 --profile dev 启动)
+  youfang-sandbox-dev:
+    container_name: youfang-sandbox-dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    ports:
+      - "${DEV_PORT:-3001}:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    restart: unless-stopped
+    profiles:
+      - dev
+    networks:
+      - sandbox-net
+
+networks:
+  sandbox-net:
+    driver: bridge
