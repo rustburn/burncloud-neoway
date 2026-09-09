@@ -1,0 +1,8 @@
+{
+  "name": "有方 - 跨境 AI 算力服务合规监管沙盒",
+  "description": "面向监管部门、数据跨境服务机构和 AI 企业的辅助监管平台，提供 Token 出海、外数中算与跨境算力服务的全链路合规沙盒监管驾驶舱。",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
