@@ -120,8 +120,8 @@ export default function App() {
         />
 
         {/* Center Main Content Page View */}
-        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-slate-100/50">
-          <div className="max-w-7xl mx-auto">
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-7 bg-slate-100/50">
+          <div className="max-w-[1720px] mx-auto w-full">
             {activePage === 'overview' && (
               <OverviewPage
                 onShowToast={showToast}

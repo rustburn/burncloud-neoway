@@ -287,19 +287,19 @@ export const EnterprisePage: React.FC<EnterprisePageProps> = ({ onShowToast, sel
       {/* Main Enterprise Table */}
       <div className="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full min-w-[1080px] text-left text-xs">
             <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 font-medium">
               <tr>
-                <th className="py-3 px-4">企业名称</th>
-                <th className="py-3 px-3">统一社会信用代码</th>
-                <th className="py-3 px-3">业务类型</th>
-                <th className="py-3 px-3">主要服务地区</th>
-                <th className="py-3 px-3">使用模型</th>
-                <th className="py-3 px-3">算力节点</th>
-                <th className="py-3 px-3">今日Token消耗</th>
-                <th className="py-3 px-3 text-center">合规评分</th>
-                <th className="py-3 px-3">沙盒状态</th>
-                <th className="py-3 px-4 text-right">操作</th>
+                <th className="py-3 px-4 whitespace-nowrap min-w-[160px]">企业名称</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[160px]">统一社会信用代码</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[100px]">业务类型</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[130px]">主要服务地区</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[160px]">使用模型</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[140px]">算力节点</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[110px]">今日Token消耗</th>
+                <th className="py-3 px-3 text-center whitespace-nowrap min-w-[90px]">合规评分</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[110px]">沙盒状态</th>
+                <th className="py-3 px-4 text-right whitespace-nowrap min-w-[90px]">操作</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -309,20 +309,20 @@ export const EnterprisePage: React.FC<EnterprisePageProps> = ({ onShowToast, sel
                   onClick={() => setSelectedEnterprise(ent)}
                   className="hover:bg-blue-50/40 cursor-pointer transition-colors group"
                 >
-                  <td className="py-3 px-4 font-semibold text-slate-900 group-hover:text-blue-600 flex items-center gap-1.5">
+                  <td className="py-3 px-4 font-semibold text-slate-900 group-hover:text-blue-600 whitespace-nowrap flex items-center gap-1.5">
                     <Building2 className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-500 shrink-0" />
                     <span>{ent.name}</span>
                   </td>
-                  <td className="py-3 px-3 font-mono text-slate-500">{ent.creditCode}</td>
-                  <td className="py-3 px-3">
-                    <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">
+                  <td className="py-3 px-3 font-mono text-slate-500 whitespace-nowrap">{ent.creditCode}</td>
+                  <td className="py-3 px-3 whitespace-nowrap">
+                    <span className="inline-flex items-center whitespace-nowrap px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">
                       {ent.businessType}
                     </span>
                   </td>
                   <td className="py-3 px-3 text-slate-600">
                     <div className="flex flex-wrap gap-1">
                       {ent.mainRegions.map((r, i) => (
-                        <span key={i} className="text-[11px] px-1.5 py-0.2 rounded bg-slate-100 text-slate-600">
+                        <span key={i} className="text-[11px] whitespace-nowrap px-1.5 py-0.2 rounded bg-slate-100 text-slate-600">
                           {r}
                         </span>
                       ))}
@@ -333,15 +333,15 @@ export const EnterprisePage: React.FC<EnterprisePageProps> = ({ onShowToast, sel
                       {ent.models.join(', ')}
                     </span>
                   </td>
-                  <td className="py-3 px-3 text-slate-600 truncate max-w-[140px]" title={ent.computeNodes.join(' / ')}>
+                  <td className="py-3 px-3 text-slate-600 truncate max-w-[160px]" title={ent.computeNodes.join(' / ')}>
                     {ent.computeNodes[0]}
                   </td>
-                  <td className="py-3 px-3 font-mono font-bold text-slate-800">
+                  <td className="py-3 px-3 font-mono font-bold text-slate-800 whitespace-nowrap">
                     {ent.todayTokens}
                   </td>
-                  <td className="py-3 px-3 text-center">
+                  <td className="py-3 px-3 text-center whitespace-nowrap">
                     <span
-                      className={`inline-block font-mono font-bold px-2 py-0.5 rounded text-xs ${
+                      className={`inline-block font-mono font-bold px-2 py-0.5 rounded text-xs whitespace-nowrap ${
                         ent.complianceScore >= 90
                           ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                           : ent.complianceScore >= 80
@@ -352,18 +352,18 @@ export const EnterprisePage: React.FC<EnterprisePageProps> = ({ onShowToast, sel
                       {ent.complianceScore}
                     </span>
                   </td>
-                  <td className="py-3 px-3">
-                    <span className={`px-2 py-0.5 rounded-full border text-[11px] font-medium ${getStatusBadge(ent.status)}`}>
+                  <td className="py-3 px-3 whitespace-nowrap">
+                    <span className={`inline-flex items-center whitespace-nowrap px-2.5 py-0.5 rounded-full border text-[11px] font-medium ${getStatusBadge(ent.status)}`}>
                       {ent.status}
                     </span>
                   </td>
-                  <td className="py-3 px-4 text-right">
+                  <td className="py-3 px-4 text-right whitespace-nowrap">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedEnterprise(ent);
                       }}
-                      className="px-2.5 py-1 rounded-md text-blue-600 hover:bg-blue-100/60 font-medium text-xs transition-colors"
+                      className="px-2.5 py-1 rounded-md text-blue-600 hover:bg-blue-100/60 font-medium text-xs transition-colors whitespace-nowrap cursor-pointer"
                     >
                       详情审查
                     </button>

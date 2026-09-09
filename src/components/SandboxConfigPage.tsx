@@ -199,27 +199,27 @@ export const SandboxConfigPage: React.FC<SandboxConfigPageProps> = ({ onShowToas
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
+            <table className="w-full min-w-[800px] text-left text-xs">
               <thead className="bg-slate-50 text-slate-500 border-b border-slate-200 font-medium">
                 <tr>
-                  <th className="py-3 px-4">模型名称</th>
-                  <th className="py-3 px-3">提供商</th>
-                  <th className="py-3 px-3">网信办算法/模型备案号</th>
-                  <th className="py-3 px-3">适用业务类型</th>
-                  <th className="py-3 px-3">准入状态</th>
-                  <th className="py-3 px-4 text-right">操作</th>
+                  <th className="py-3 px-4 whitespace-nowrap min-w-[130px]">模型名称</th>
+                  <th className="py-3 px-3 whitespace-nowrap min-w-[100px]">提供商</th>
+                  <th className="py-3 px-3 whitespace-nowrap min-w-[180px]">网信办算法/模型备案号</th>
+                  <th className="py-3 px-3 whitespace-nowrap min-w-[110px]">适用业务类型</th>
+                  <th className="py-3 px-3 whitespace-nowrap min-w-[90px]">准入状态</th>
+                  <th className="py-3 px-4 text-right whitespace-nowrap min-w-[90px]">操作</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {models.map((m) => (
                   <tr key={m.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="py-3 px-4 font-bold text-slate-900 font-mono text-xs">{m.name}</td>
-                    <td className="py-3 px-3 text-slate-700">{m.provider}</td>
-                    <td className="py-3 px-3 font-mono text-slate-500 text-[11px]">{m.recordNumber}</td>
-                    <td className="py-3 px-3 text-slate-600">{m.applicableBiz}</td>
-                    <td className="py-3 px-3">
+                    <td className="py-3 px-4 font-bold text-slate-900 font-mono text-xs whitespace-nowrap">{m.name}</td>
+                    <td className="py-3 px-3 text-slate-700 whitespace-nowrap">{m.provider}</td>
+                    <td className="py-3 px-3 font-mono text-slate-500 text-[11px] whitespace-nowrap">{m.recordNumber}</td>
+                    <td className="py-3 px-3 text-slate-600 whitespace-nowrap">{m.applicableBiz}</td>
+                    <td className="py-3 px-3 whitespace-nowrap">
                       <span
-                        className={`px-2 py-0.5 rounded-full border text-[11px] font-medium ${
+                        className={`inline-flex items-center whitespace-nowrap px-2.5 py-0.5 rounded-full border text-[11px] font-medium ${
                           m.status === '已启用'
                             ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
                             : m.status === '已限制'
@@ -230,10 +230,10 @@ export const SandboxConfigPage: React.FC<SandboxConfigPageProps> = ({ onShowToas
                         {m.status}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-right">
+                    <td className="py-3 px-4 text-right whitespace-nowrap">
                       <button
                         onClick={() => handleToggleModelStatus(m.id)}
-                        className="px-2.5 py-1 rounded text-blue-600 hover:bg-blue-50 font-medium text-xs transition-colors"
+                        className="px-2.5 py-1 rounded text-blue-600 hover:bg-blue-50 font-medium text-xs transition-colors whitespace-nowrap cursor-pointer"
                       >
                         {m.status === '已启用' ? '变更限制' : m.status === '已限制' ? '禁用' : '重新启用'}
                       </button>

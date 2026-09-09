@@ -388,19 +388,19 @@ export const RiskEventsPage: React.FC<RiskEventsPageProps> = ({ onShowToast }) =
       {/* Main Risk Events Table */}
       <div className="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full min-w-[1120px] text-left text-xs">
             <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 font-medium">
               <tr>
-                <th className="py-3 px-4">事件编号</th>
-                <th className="py-3 px-3">发现时间</th>
-                <th className="py-3 px-3">涉事企业</th>
-                <th className="py-3 px-3">风险类型</th>
-                <th className="py-3 px-3 text-center">风险等级</th>
-                <th className="py-3 px-3 text-center">影响请求数</th>
-                <th className="py-3 px-3">自动处置结果</th>
-                <th className="py-3 px-3">当前负责人</th>
-                <th className="py-3 px-3">状态</th>
-                <th className="py-3 px-4 text-right">操作</th>
+                <th className="py-3 px-4 whitespace-nowrap min-w-[150px]">事件编号</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[150px]">发现时间</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[160px]">涉事企业</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[120px]">风险类型</th>
+                <th className="py-3 px-3 text-center whitespace-nowrap min-w-[90px]">风险等级</th>
+                <th className="py-3 px-3 text-center whitespace-nowrap min-w-[100px]">影响请求数</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[180px]">自动处置结果</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[100px]">当前负责人</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[90px]">状态</th>
+                <th className="py-3 px-4 text-right whitespace-nowrap min-w-[100px]">操作</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -410,38 +410,38 @@ export const RiskEventsPage: React.FC<RiskEventsPageProps> = ({ onShowToast }) =
                   onClick={() => setSelectedEvent(ev)}
                   className="hover:bg-rose-50/30 cursor-pointer transition-colors group"
                 >
-                  <td className="py-3 px-4 font-mono font-semibold text-rose-700">
+                  <td className="py-3 px-4 font-mono font-semibold text-rose-700 whitespace-nowrap">
                     {ev.eventNumber}
                   </td>
                   <td className="py-3 px-3 font-mono text-slate-500 whitespace-nowrap">{ev.discoveryTime}</td>
-                  <td className="py-3 px-3 font-semibold text-slate-900">{ev.enterprise}</td>
-                  <td className="py-3 px-3">
+                  <td className="py-3 px-3 font-semibold text-slate-900 whitespace-nowrap">{ev.enterprise}</td>
+                  <td className="py-3 px-3 whitespace-nowrap">
                     <span className="font-medium text-slate-800">{ev.riskType}</span>
                   </td>
-                  <td className="py-3 px-3 text-center">
-                    <span className={`px-2 py-0.5 rounded border text-[11px] ${getLevelBadge(ev.riskLevel)}`}>
+                  <td className="py-3 px-3 text-center whitespace-nowrap">
+                    <span className={`inline-flex items-center justify-center whitespace-nowrap px-2.5 py-0.5 rounded border text-[11px] ${getLevelBadge(ev.riskLevel)}`}>
                       {ev.riskLevel}
                     </span>
                   </td>
-                  <td className="py-3 px-3 text-center font-mono font-semibold text-slate-700">
+                  <td className="py-3 px-3 text-center font-mono font-semibold text-slate-700 whitespace-nowrap">
                     {ev.affectedRequests} 次
                   </td>
                   <td className="py-3 px-3 text-slate-600 truncate max-w-[200px]" title={ev.autoDisposalResult}>
                     {ev.autoDisposalResult}
                   </td>
-                  <td className="py-3 px-3 text-slate-700">{ev.currentHandler}</td>
-                  <td className="py-3 px-3">
-                    <span className={`px-2 py-0.5 rounded-full border text-[11px] ${getStatusBadge(ev.status)}`}>
+                  <td className="py-3 px-3 text-slate-700 whitespace-nowrap">{ev.currentHandler}</td>
+                  <td className="py-3 px-3 whitespace-nowrap">
+                    <span className={`inline-flex items-center justify-center whitespace-nowrap px-2.5 py-0.5 rounded-full border text-[11px] ${getStatusBadge(ev.status)}`}>
                       {ev.status}
                     </span>
                   </td>
-                  <td className="py-3 px-4 text-right">
+                  <td className="py-3 px-4 text-right whitespace-nowrap">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedEvent(ev);
                       }}
-                      className="px-2.5 py-1 rounded-md text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 font-medium text-xs transition-colors"
+                      className="px-2.5 py-1 rounded-md text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 font-medium text-xs transition-colors whitespace-nowrap cursor-pointer"
                     >
                       处置与研判
                     </button>

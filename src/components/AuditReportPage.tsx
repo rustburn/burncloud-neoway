@@ -218,17 +218,17 @@ export const AuditReportPage: React.FC<AuditReportPageProps> = ({ onShowToast, t
       {/* Main Evidence Table */}
       <div className="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full min-w-[1050px] text-left text-xs">
             <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 font-medium">
               <tr>
-                <th className="py-3 px-4">存证编号</th>
-                <th className="py-3 px-3">关联请求追踪ID</th>
-                <th className="py-3 px-3">存证时间</th>
-                <th className="py-3 px-3">存证企业</th>
-                <th className="py-3 px-3">存证类型</th>
-                <th className="py-3 px-3">校验状态</th>
-                <th className="py-3 px-3">区块高度 / 节点签名</th>
-                <th className="py-3 px-4 text-right">操作</th>
+                <th className="py-3 px-4 whitespace-nowrap min-w-[160px]">存证编号</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[170px]">关联请求追踪ID</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[150px]">存证时间</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[160px]">存证企业</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[120px]">存证类型</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[110px]">校验状态</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[160px]">区块高度 / 节点签名</th>
+                <th className="py-3 px-4 text-right whitespace-nowrap min-w-[90px]">操作</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -238,40 +238,40 @@ export const AuditReportPage: React.FC<AuditReportPageProps> = ({ onShowToast, t
                   onClick={() => setSelectedEvidence(item)}
                   className="hover:bg-blue-50/40 cursor-pointer transition-colors group"
                 >
-                  <td className="py-3 px-4 font-mono font-semibold text-blue-600 flex items-center gap-1.5">
+                  <td className="py-3 px-4 font-mono font-semibold text-blue-600 whitespace-nowrap flex items-center gap-1.5">
                     <Lock className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-600 shrink-0" />
                     <span>{item.evidenceNumber}</span>
                   </td>
-                  <td className="py-3 px-3 font-mono text-slate-700">{item.traceId}</td>
+                  <td className="py-3 px-3 font-mono text-slate-700 whitespace-nowrap">{item.traceId}</td>
                   <td className="py-3 px-3 font-mono text-slate-500 whitespace-nowrap">{item.timestamp}</td>
-                  <td className="py-3 px-3 font-semibold text-slate-900">{item.enterprise}</td>
-                  <td className="py-3 px-3">
-                    <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium text-[11px]">
+                  <td className="py-3 px-3 font-semibold text-slate-900 whitespace-nowrap">{item.enterprise}</td>
+                  <td className="py-3 px-3 whitespace-nowrap">
+                    <span className="inline-flex items-center whitespace-nowrap px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium text-[11px]">
                       {item.evidenceType}
                     </span>
                   </td>
-                  <td className="py-3 px-3">
-                    <span className={`px-2 py-0.5 rounded-full border text-[11px] font-medium flex items-center gap-1 w-fit ${getStatusBadge(item.status)}`}>
-                      <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                  <td className="py-3 px-3 whitespace-nowrap">
+                    <span className={`inline-flex items-center whitespace-nowrap px-2 py-0.5 rounded-full border text-[11px] font-medium gap-1 w-fit ${getStatusBadge(item.status)}`}>
+                      <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
                       <span>{item.status}</span>
                     </span>
                   </td>
-                  <td className="py-3 px-3 font-mono text-slate-500">
+                  <td className="py-3 px-3 font-mono text-slate-500 whitespace-nowrap">
                     <div className="flex items-center gap-1">
                       <span className="text-blue-700 font-medium">#{item.blockHeight}</span>
                       <span className="text-slate-300">/</span>
-                      <span className="truncate max-w-[90px]" title={item.nodeSignature}>
+                      <span className="truncate max-w-[120px]" title={item.nodeSignature}>
                         {item.nodeSignature}
                       </span>
                     </div>
                   </td>
-                  <td className="py-3 px-4 text-right">
+                  <td className="py-3 px-4 text-right whitespace-nowrap">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedEvidence(item);
                       }}
-                      className="px-2.5 py-1 rounded-md text-blue-600 hover:bg-blue-100/60 font-medium text-xs transition-colors"
+                      className="px-2.5 py-1 rounded-md text-blue-600 hover:bg-blue-100/60 font-medium text-xs transition-colors whitespace-nowrap cursor-pointer"
                     >
                       存证验签
                     </button>

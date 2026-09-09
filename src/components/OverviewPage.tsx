@@ -870,15 +870,15 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
+            <table className="w-full min-w-[640px] text-left text-xs">
               <thead>
                 <tr className="border-b border-slate-100 text-slate-400 font-medium">
-                  <th className="pb-2">排名</th>
-                  <th className="pb-2">企业名称</th>
-                  <th className="pb-2">业务类型</th>
-                  <th className="pb-2">今日消耗</th>
-                  <th className="pb-2">沙盒状态</th>
-                  <th className="pb-2 text-right">合规评分</th>
+                  <th className="pb-2 whitespace-nowrap min-w-[50px]">排名</th>
+                  <th className="pb-2 whitespace-nowrap min-w-[150px]">企业名称</th>
+                  <th className="pb-2 whitespace-nowrap min-w-[90px]">业务类型</th>
+                  <th className="pb-2 whitespace-nowrap min-w-[100px]">今日消耗</th>
+                  <th className="pb-2 whitespace-nowrap min-w-[100px]">沙盒状态</th>
+                  <th className="pb-2 text-right whitespace-nowrap min-w-[80px]">合规评分</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -891,7 +891,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
                     }}
                     className="hover:bg-slate-50 cursor-pointer transition-colors"
                   >
-                    <td className="py-2.5 font-bold font-mono text-slate-500">
+                    <td className="py-2.5 font-bold font-mono text-slate-500 whitespace-nowrap">
                       {idx === 0 ? (
                         <span className="w-5 h-5 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center text-[10px]">
                           1
@@ -908,16 +908,16 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
                         <span className="pl-1.5">{idx + 1}</span>
                       )}
                     </td>
-                    <td className="py-2.5 font-semibold text-slate-900">{ent.name}</td>
-                    <td className="py-2.5 text-slate-600">
-                      <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px]">
+                    <td className="py-2.5 font-semibold text-slate-900 whitespace-nowrap">{ent.name}</td>
+                    <td className="py-2.5 text-slate-600 whitespace-nowrap">
+                      <span className="inline-flex items-center whitespace-nowrap px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px]">
                         {ent.businessType}
                       </span>
                     </td>
-                    <td className="py-2.5 font-mono text-slate-700">{ent.todayTokens}</td>
-                    <td className="py-2.5">
+                    <td className="py-2.5 font-mono text-slate-700 whitespace-nowrap">{ent.todayTokens}</td>
+                    <td className="py-2.5 whitespace-nowrap">
                       <span
-                        className={`px-2 py-0.5 rounded-full text-[10px] font-medium ${
+                        className={`inline-flex items-center whitespace-nowrap px-2 py-0.5 rounded-full text-[10px] font-medium ${
                           ent.status === '已通过'
                             ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                             : ent.status === '技术验证中'
@@ -930,7 +930,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
                         {ent.status}
                       </span>
                     </td>
-                    <td className="py-2.5 text-right font-mono font-bold">
+                    <td className="py-2.5 text-right font-mono font-bold whitespace-nowrap">
                       <span
                         className={
                           ent.complianceScore >= 90

@@ -242,22 +242,22 @@ export const CrossBorderTracePage: React.FC<CrossBorderTracePageProps> = ({
       {/* Main Flow Table */}
       <div className="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full min-w-[1360px] text-left text-xs">
             <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 font-medium">
               <tr>
-                <th className="py-3 px-4">请求追踪ID</th>
-                <th className="py-3 px-3">请求时间</th>
-                <th className="py-3 px-3">企业名称</th>
-                <th className="py-3 px-3">来源国家</th>
-                <th className="py-3 px-3">接入线路</th>
-                <th className="py-3 px-3">数据类别</th>
-                <th className="py-3 px-2 text-center">个人信息</th>
-                <th className="py-3 px-2 text-center">敏感信息</th>
-                <th className="py-3 px-3">调用模型</th>
-                <th className="py-3 px-3">输入/输出Token</th>
-                <th className="py-3 px-3">合规结果</th>
-                <th className="py-3 px-3">请求状态</th>
-                <th className="py-3 px-4 text-right">操作</th>
+                <th className="py-3 px-4 whitespace-nowrap min-w-[170px]">请求追踪ID</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[150px]">请求时间</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[160px]">企业名称</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[90px]">来源国家</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[150px]">接入线路</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[90px]">数据类别</th>
+                <th className="py-3 px-2 text-center whitespace-nowrap min-w-[70px]">个人信息</th>
+                <th className="py-3 px-2 text-center whitespace-nowrap min-w-[70px]">敏感信息</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[130px]">调用模型</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[140px]">输入/输出Token</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[100px]">合规结果</th>
+                <th className="py-3 px-3 whitespace-nowrap min-w-[80px]">请求状态</th>
+                <th className="py-3 px-4 text-right whitespace-nowrap min-w-[100px]">操作</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -267,50 +267,50 @@ export const CrossBorderTracePage: React.FC<CrossBorderTracePageProps> = ({
                   onClick={() => setSelectedRecord(rec)}
                   className="hover:bg-blue-50/40 cursor-pointer transition-colors group"
                 >
-                  <td className="py-3 px-4 font-mono font-semibold text-blue-600 flex items-center gap-1">
+                  <td className="py-3 px-4 font-mono font-semibold text-blue-600 whitespace-nowrap flex items-center gap-1">
                     <span>{rec.traceId}</span>
                   </td>
                   <td className="py-3 px-3 font-mono text-slate-500 whitespace-nowrap">{rec.requestTime}</td>
-                  <td className="py-3 px-3 font-semibold text-slate-900">{rec.enterprise}</td>
-                  <td className="py-3 px-3 text-slate-700 font-medium">{rec.sourceCountry}</td>
-                  <td className="py-3 px-3 text-slate-500 truncate max-w-[120px]" title={rec.line}>
+                  <td className="py-3 px-3 font-semibold text-slate-900 whitespace-nowrap">{rec.enterprise}</td>
+                  <td className="py-3 px-3 text-slate-700 font-medium whitespace-nowrap">{rec.sourceCountry}</td>
+                  <td className="py-3 px-3 text-slate-500 whitespace-nowrap" title={rec.line}>
                     {rec.line}
                   </td>
-                  <td className="py-3 px-3">
-                    <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700">
+                  <td className="py-3 px-3 whitespace-nowrap">
+                    <span className="inline-flex items-center whitespace-nowrap px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">
                       {rec.dataCategory}
                     </span>
                   </td>
-                  <td className="py-3 px-2 text-center">
+                  <td className="py-3 px-2 text-center whitespace-nowrap">
                     {rec.hasPersonalInfo ? (
-                      <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-100 text-amber-800 font-medium">
+                      <span className="inline-flex items-center justify-center whitespace-nowrap text-[10px] px-1.5 py-0.2 rounded bg-amber-100 text-amber-800 font-medium">
                         是
                       </span>
                     ) : (
                       <span className="text-[10px] text-slate-400">否</span>
                     )}
                   </td>
-                  <td className="py-3 px-2 text-center">
+                  <td className="py-3 px-2 text-center whitespace-nowrap">
                     {rec.hasSensitiveInfo ? (
-                      <span className="text-[10px] px-1.5 py-0.2 rounded bg-rose-100 text-rose-800 font-bold">
+                      <span className="inline-flex items-center justify-center whitespace-nowrap text-[10px] px-1.5 py-0.2 rounded bg-rose-100 text-rose-800 font-bold">
                         敏感
                       </span>
                     ) : (
                       <span className="text-[10px] text-slate-400">无</span>
                     )}
                   </td>
-                  <td className="py-3 px-3 font-mono font-medium text-slate-800">{rec.model}</td>
+                  <td className="py-3 px-3 font-mono font-medium text-slate-800 whitespace-nowrap">{rec.model}</td>
                   <td className="py-3 px-3 font-mono text-slate-600 whitespace-nowrap">
                     {rec.inputTokens.toLocaleString()} / {rec.outputTokens.toLocaleString()}
                   </td>
-                  <td className="py-3 px-3">
-                    <span className={`px-2 py-0.5 rounded-full border text-[11px] font-medium ${getComplianceBadge(rec.complianceResult)}`}>
+                  <td className="py-3 px-3 whitespace-nowrap">
+                    <span className={`inline-flex items-center justify-center whitespace-nowrap px-2.5 py-0.5 rounded-full border text-[11px] font-medium ${getComplianceBadge(rec.complianceResult)}`}>
                       {rec.complianceResult}
                     </span>
                   </td>
-                  <td className="py-3 px-3">
+                  <td className="py-3 px-3 whitespace-nowrap">
                     <span
-                      className={`text-[11px] font-medium ${
+                      className={`inline-flex items-center whitespace-nowrap text-[11px] font-medium ${
                         rec.requestStatus === '已完成'
                           ? 'text-emerald-600'
                           : rec.requestStatus === '阻断'
@@ -321,13 +321,13 @@ export const CrossBorderTracePage: React.FC<CrossBorderTracePageProps> = ({
                       {rec.requestStatus}
                     </span>
                   </td>
-                  <td className="py-3 px-4 text-right">
+                  <td className="py-3 px-4 text-right whitespace-nowrap">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedRecord(rec);
                       }}
-                      className="px-2.5 py-1 rounded-md text-blue-600 hover:bg-blue-100/60 font-medium text-xs transition-colors"
+                      className="px-2.5 py-1 rounded-md text-blue-600 hover:bg-blue-100/60 font-medium text-xs transition-colors whitespace-nowrap cursor-pointer"
                     >
                       调用链详情
                     </button>
