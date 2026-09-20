@@ -1,229 +1,243 @@
 import React from 'react';
 import {
   LayoutDashboard,
-  Building2,
-  GitFork,
+  SearchCheck,
+  Network,
   ShieldAlert,
-  FileCheck2,
+  Briefcase,
+  FileSpreadsheet,
+  DatabaseZap,
+  Bot,
   SlidersHorizontal,
-  Server,
-  Lock,
   PanelLeftClose,
   PanelLeftOpen,
+  Cpu,
+  Sparkles,
 } from 'lucide-react';
-import { Role } from '../types';
 
 interface SidebarProps {
-  currentPage?: string;
-  activePage?: string;
-  onPageChange?: (page: string) => void;
-  onNavigate?: (page: string) => void;
+  activePage: string;
+  onNavigate: (pageId: string) => void;
   pendingRisksCount?: number;
-  currentRole?: Role;
   isCollapsed?: boolean;
   onToggleCollapse?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
-  currentPage,
   activePage,
-  onPageChange,
   onNavigate,
-  pendingRisksCount = 8,
+  pendingRisksCount = 11,
   isCollapsed = false,
   onToggleCollapse,
 }) => {
-  const current = activePage || currentPage || 'overview';
-
-  const handleItemClick = (pageId: string) => {
-    if (typeof onNavigate === 'function') {
-      onNavigate(pageId);
-    }
-    if (typeof onPageChange === 'function') {
-      onPageChange(pageId);
-    }
-  };
-  const menuItems = [
+  const menuSections = [
     {
-      id: 'overview',
-      name: '监管总览',
-      icon: LayoutDashboard,
-      badge: null,
-      description: '全链路态势与流转看板',
+      title: 'Token流向监测与预警驾驶舱',
+      items: [
+        {
+          id: 'overview',
+          name: '监管驾驶舱',
+          icon: LayoutDashboard,
+          badge: '部省市县',
+          badgeColor: 'bg-blue-500/20 text-blue-300 border border-blue-500/40',
+          desc: '全国大模型Token交易大屏、算力券核销与风险态势',
+        },
+        {
+          id: 'monitoring',
+          name: 'Token流向与风险交易',
+          icon: SearchCheck,
+          badge: '核心模块',
+          badgeColor: 'bg-amber-500/20 text-amber-300 border border-amber-500/40',
+          desc: 'API Key盗刷、算力券骗补、模型走私与跨境异常流动',
+        },
+        {
+          id: 'risk-alerts',
+          name: '风险预警与处置工单',
+          icon: ShieldAlert,
+          badge: `${pendingRisksCount} 待办`,
+          badgeColor: 'bg-rose-600 text-white shadow-xs',
+          desc: '红橙黄蓝四级预警与算力配额熔断闭环处置',
+        },
+      ],
     },
     {
-      id: 'enterprise',
-      name: '企业管理',
-      icon: Building2,
-      badge: '28家',
-      description: '入驻企业及备案审查',
+      title: '穿透图谱与案件调查',
+      items: [
+        {
+          id: 'fund-graph',
+          name: 'Token流向与穿透图谱',
+          icon: Network,
+          badge: 'Graph DB',
+          badgeColor: 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/40',
+          desc: '多级API转售追踪、同一控制人(UBO)与黑产团伙识别',
+        },
+        {
+          id: 'investigation',
+          name: '案件调查与司法存证',
+          icon: Briefcase,
+          badge: '司法存证',
+          badgeColor: 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40',
+          desc: '调用指纹比对、国密TSA存证与司法电子证据包导出',
+        },
+        {
+          id: 'regulatory-reports',
+          name: '监管法定报送报表',
+          icon: FileSpreadsheet,
+          badge: 'XML/JSON',
+          badgeColor: 'bg-slate-700 text-slate-200 border border-slate-600',
+          desc: '网信办/工信部/数据局法定报送与算力券核验清单',
+        },
+      ],
     },
     {
-      id: 'cross-border',
-      name: '跨境流转',
-      icon: GitFork,
-      badge: null,
-      description: '全链路请求追踪与溯源',
-    },
-    {
-      id: 'risk',
-      name: '风险事件',
-      icon: ShieldAlert,
-      badge: pendingRisksCount > 0 ? `${pendingRisksCount}待办` : null,
-      badgeColor: 'bg-rose-500 text-white',
-      description: '异常拦截与合规闭环',
-    },
-    {
-      id: 'audit',
-      name: '审计中心',
-      icon: FileCheck2,
-      badge: null,
-      description: '存证账本与监管报告',
-    },
-    {
-      id: 'config',
-      name: '沙盒配置',
-      icon: SlidersHorizontal,
-      badge: null,
-      description: '合规策略基准与规则配置',
+      title: '智能研判与系统集成',
+      items: [
+        {
+          id: 'data-ingestion',
+          name: '多源算网探针接入',
+          icon: DatabaseZap,
+          badge: '日均1亿+条',
+          badgeColor: 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40',
+          desc: '大模型平台API/智算中心调度/API网关/数交所专区',
+        },
+        {
+          id: 'ai-intelligence',
+          name: 'AI 智能研判与舆情',
+          icon: Bot,
+          badge: 'GNN/XGBoost',
+          badgeColor: 'bg-purple-500/20 text-purple-300 border border-purple-500/40',
+          desc: 'Token异常流量GNN研判、暗网黑产监控与监管Copilot',
+        },
+        {
+          id: 'audit-security',
+          name: '权限与安全审计',
+          icon: SlidersHorizontal,
+          badge: '等保三级',
+          badgeColor: 'bg-slate-700 text-slate-300',
+          desc: 'RBAC多部门组织隔离、国密SM3审计与专网安全',
+        },
+      ],
     },
   ];
 
   return (
     <aside
-      className={`bg-slate-900 text-slate-300 flex flex-col shrink-0 border-r border-slate-800 select-none transition-all duration-200 ${
+      className={`bg-slate-950 text-slate-300 flex flex-col shrink-0 border-r border-slate-800 select-none transition-all duration-200 ${
         isCollapsed ? 'w-20' : 'w-64'
       }`}
     >
       {/* Brand Header */}
-      <div className="p-4 border-b border-slate-800/80 bg-slate-950/40 flex items-center justify-between">
+      <div className="p-4 border-b border-slate-800/80 bg-slate-950/60 flex items-center justify-between">
         <div className="flex items-center gap-3 overflow-hidden">
-          <div className="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-tr from-blue-600 via-blue-500 to-cyan-400 flex items-center justify-center text-white shadow-md shadow-blue-500/20 ring-1 ring-white/20">
-            <Lock className="w-5 h-5" />
+          <div className="w-8 h-8 rounded-lg bg-blue-600/90 text-white flex items-center justify-center shrink-0 shadow-sm border border-blue-400/40">
+            <Cpu className="w-4 h-4" />
           </div>
           {!isCollapsed && (
-            <div className="min-w-0">
-              <h1 className="font-bold text-white text-base tracking-tight flex items-center gap-1.5">
-                <span>有方</span>
-                <span className="text-[10px] bg-blue-500/20 text-blue-300 border border-blue-400/30 px-1.5 py-0.5 rounded font-normal">
-                  Sandbox
-                </span>
+            <div className="leading-tight">
+              <h1 className="font-bold text-slate-100 text-sm tracking-wide">
+                有方 RegTech
               </h1>
-              <p className="text-[11px] text-slate-400 leading-tight mt-0.5 truncate">
-                跨境 AI 算力服务合规监管沙盒
+              <p className="text-[10px] text-emerald-400 font-mono flex items-center gap-1 mt-0.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-pulse"></span>
+                <span>大模型Token监管平台</span>
               </p>
             </div>
           )}
         </div>
 
-        {onToggleCollapse && (
-          <button
-            onClick={onToggleCollapse}
-            title={isCollapsed ? '展开菜单' : '收起菜单'}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
-          >
-            {isCollapsed ? (
-              <PanelLeftOpen className="w-4 h-4" />
-            ) : (
-              <PanelLeftClose className="w-4 h-4" />
-            )}
-          </button>
-        )}
+        <button
+          onClick={onToggleCollapse}
+          className="text-slate-400 hover:text-white p-1 rounded-md hover:bg-slate-800/80 transition-colors cursor-pointer"
+          title={isCollapsed ? '展开导航栏' : '收起导航栏'}
+        >
+          {isCollapsed ? (
+            <PanelLeftOpen className="w-4 h-4" />
+          ) : (
+            <PanelLeftClose className="w-4 h-4" />
+          )}
+        </button>
       </div>
 
-      {/* Navigation Menu (Max 6 First-Level Items) */}
-      <nav className="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto">
-        {!isCollapsed && (
-          <div className="px-3 pb-2 text-[10px] font-semibold text-slate-500 uppercase tracking-wider">
-            监管核心功能
-          </div>
-        )}
+      {/* Nav Menu Items */}
+      <div className="flex-1 overflow-y-auto py-3 px-2 space-y-5 custom-scrollbar">
+        {menuSections.map((section, idx) => (
+          <div key={idx} className="space-y-1">
+            {!isCollapsed && (
+              <p className="px-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                {section.title}
+              </p>
+            )}
 
-        {menuItems.map((item) => {
-          const Icon = item.icon;
-          const isActive = current === item.id;
-          return (
-            <button
-              key={item.id}
-              onClick={() => handleItemClick(item.id)}
-              title={isCollapsed ? `${item.name} - ${item.description}` : undefined}
-              className={`w-full text-left rounded-xl flex items-center transition-all group ${
-                isCollapsed
-                  ? 'justify-center p-3'
-                  : 'justify-between px-3.5 py-3'
-              } text-xs font-medium ${
-                isActive
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20 font-semibold'
-                  : 'text-slate-300 hover:bg-slate-800/80 hover:text-white'
-              }`}
-            >
-              <div className="flex items-center gap-3 min-w-0">
-                <Icon
-                  className={`w-4 h-4 shrink-0 transition-transform group-hover:scale-110 ${
-                    isActive ? 'text-white' : 'text-slate-400 group-hover:text-blue-400'
-                  }`}
-                />
-                {!isCollapsed && (
-                  <div className="truncate">
-                    <div className="leading-none truncate">{item.name}</div>
-                    <div
-                      className={`text-[10px] mt-1 font-normal truncate ${
-                        isActive ? 'text-blue-100' : 'text-slate-500'
-                      }`}
-                    >
-                      {item.description}
-                    </div>
-                  </div>
-                )}
-              </div>
+            {section.items.map((item) => {
+              const isActive = activePage === item.id;
+              const Icon = item.icon;
 
-              {!isCollapsed && item.badge && (
-                <span
-                  className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold shrink-0 ${
-                    item.badgeColor
-                      ? item.badgeColor
-                      : isActive
-                      ? 'bg-blue-700 text-white'
-                      : 'bg-slate-800 text-slate-400 border border-slate-700'
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => onNavigate(item.id)}
+                  title={isCollapsed ? `${item.name} - ${item.desc}` : undefined}
+                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium transition-all group cursor-pointer text-left ${
+                    isActive
+                      ? 'bg-blue-600 text-white shadow-md shadow-blue-900/30'
+                      : 'text-slate-400 hover:text-slate-100 hover:bg-slate-900/80'
                   }`}
                 >
-                  {item.badge}
-                </span>
-              )}
-            </button>
-          );
-        })}
-      </nav>
+                  <Icon
+                    className={`w-4 h-4 shrink-0 transition-transform ${
+                      isActive ? 'text-white' : 'text-slate-400 group-hover:text-slate-200'
+                    }`}
+                  />
 
-      {/* Infrastructure Status Widget */}
+                  {!isCollapsed && (
+                    <div className="flex-1 min-w-0 flex items-center justify-between">
+                      <div className="truncate">
+                        <span className="block truncate font-medium text-[13px]">{item.name}</span>
+                        <span
+                          className={`block text-[10px] truncate ${
+                            isActive ? 'text-blue-100' : 'text-slate-400'
+                          }`}
+                        >
+                          {item.desc}
+                        </span>
+                      </div>
+
+                      {item.badge && (
+                        <span
+                          className={`ml-2 px-1.5 py-0.5 text-[10px] font-semibold rounded shrink-0 ${
+                            isActive
+                              ? 'bg-blue-700/80 text-white'
+                              : item.badgeColor || 'bg-slate-800 text-slate-300'
+                          }`}
+                        >
+                          {item.badge}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        ))}
+      </div>
+
+      {/* Footer Info Box */}
       {!isCollapsed && (
-        <div className="p-4 m-3 rounded-xl bg-slate-950/60 border border-slate-800/80 text-slate-400 text-xs">
-          <div className="flex items-center justify-between mb-2">
-            <span className="flex items-center gap-1.5 font-medium text-slate-300 text-[11px]">
-              <Server className="w-3.5 h-3.5 text-emerald-400" />
-              算力与沙盒集群状态
+        <div className="p-3 m-2 rounded-xl bg-slate-900/90 border border-slate-800 text-slate-400 text-xs">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[11px] text-slate-300 font-medium">Token 异构流监控</span>
+            <span className="flex items-center gap-1 text-[10px] text-emerald-400 font-mono">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-ping"></span>
+              在线
             </span>
-            <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
           </div>
-
-          <div className="space-y-1.5 text-[11px]">
-            <div className="flex justify-between">
-              <span className="text-slate-500">国际专线通道</span>
-              <span className="text-slate-300 font-mono">5 条全部连通</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-slate-500">国内算力节点</span>
-              <span className="text-slate-300 font-mono">45 正常 / 1 维护</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-slate-500">隔离沙盒环境</span>
-              <span className="text-emerald-400 font-mono">零数据公网溢出</span>
-            </div>
-          </div>
-
-          <div className="mt-3 pt-2 border-t border-slate-800/80 text-[10px] text-slate-500 flex justify-between items-center">
-            <span>系统版本: v2.4 (辅助监管版)</span>
-            <span className="text-slate-400 font-mono">SEC-AA</span>
+          <p className="text-[10px] text-slate-400 leading-relaxed font-mono">
+            吞吐: 32.5万 Tokens/s · 延迟: 12ms · 算力券核销核验: 100%
+          </p>
+          <div className="mt-2 pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px]">
+            <span className="text-slate-400">法规基准</span>
+            <span className="text-blue-400 font-semibold">生成式AI暂行办法</span>
           </div>
         </div>
       )}

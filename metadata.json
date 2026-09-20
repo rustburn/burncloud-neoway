@@ -1,6 +1,6 @@
 {
-  "name": "有方 - 跨境 AI 算力服务合规监管沙盒",
-  "description": "面向监管部门、数据跨境服务机构和 AI 企业的辅助监管平台，提供 Token 出海、外数中算与跨境算力服务的全链路合规沙盒监管驾驶舱。",
+  "name": "有方 - 大模型Token交易合规监管科技沙盒平台",
+  "description": "面向国家网信办、工信部算力调度局、国家数据局与公安部网安经侦局的B2G专业监管科技平台。严格遵循不撮合交易、不碰资金、不做钱包/API中转收费的纯监管定位，专业监管大模型Token（推理调用配额、算力券、预付费Token包与API专区）的风险交易，覆盖算力券刷量套现、非法转售走私、API盗刷洗钱、数据出境与幌骗囤积居奇等多维度穿透式监管。",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

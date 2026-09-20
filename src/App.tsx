@@ -3,26 +3,30 @@ import { Sidebar } from './components/Sidebar';
 import { Header } from './components/Header';
 import { LoginView } from './components/LoginView';
 import { OverviewPage } from './components/OverviewPage';
-import { EnterprisePage } from './components/EnterprisePage';
-import { CrossBorderTracePage } from './components/CrossBorderTracePage';
-import { RiskEventsPage } from './components/RiskEventsPage';
-import { AuditReportPage } from './components/AuditReportPage';
-import { SandboxConfigPage } from './components/SandboxConfigPage';
+import { MonitoringPage } from './components/MonitoringPage';
+import { FundGraphPage } from './components/FundGraphPage';
+import { RiskAlertsPage } from './components/RiskAlertsPage';
+import { InvestigationPage } from './components/InvestigationPage';
+import { RegulatoryReportsPage } from './components/RegulatoryReportsPage';
+import { DataIngestionPage } from './components/DataIngestionPage';
+import { AiIntelligencePage } from './components/AiIntelligencePage';
+import { AuditSecurityPage } from './components/AuditSecurityPage';
 import { ToastContainer, ToastMessage } from './components/Toast';
+import { RegulatoryAgency, JurisdictionLevel } from './types';
 
 export default function App() {
-  // Authentication & Role
+  // Authentication & Regulatory Agency
   const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [currentRole, setCurrentRole] = useState<'government' | 'operator' | 'enterprise'>('government');
+  const [currentAgency, setCurrentAgency] = useState<RegulatoryAgency>('cac');
+  const [jurisdictionLevel, setJurisdictionLevel] = useState<JurisdictionLevel>('ministry');
 
   // Navigation
   const [activePage, setActivePage] = useState<string>('overview');
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   // Cross-page parameters
-  const [selectedEnterpriseId, setSelectedEnterpriseId] = useState<string | null>(null);
-  const [selectedTraceId, setSelectedTraceId] = useState<string | null>(null);
-  const [selectedEvidenceId, setSelectedEvidenceId] = useState<string | null>(null);
+  const [focusTxId, setFocusTxId] = useState<string | undefined>(undefined);
+  const [focusAddress, setFocusAddress] = useState<string | undefined>(undefined);
 
   // Toast Notifications
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
@@ -41,31 +45,33 @@ export default function App() {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   };
 
-  const handleLogin = (role: 'government' | 'operator' | 'enterprise') => {
-    setCurrentRole(role);
+  const agencyNames: Record<RegulatoryAgency, string> = {
+    cac: '国家互联网信息办公室 · 算法与大模型安全治理局',
+    miit: '工业和信息化部 · 算网调度与算力券监管局',
+    nda: '国家数据局 · 数字要素与算力基础设施司',
+    mps_cyber: '公安部网络安全保卫局 / 经侦局 · 大模型涉案专席',
+    regtech_center: '国家智算与大模型监管沙盒运行中心',
+  };
+
+  const handleLogin = (agency: RegulatoryAgency) => {
+    setCurrentAgency(agency);
     setIsLoggedIn(true);
     showToast(
-      '已成功登录有方监管沙盒',
-      `当前身份：${
-        role === 'government'
-          ? '政府监管部门（网信/工信/发改）'
-          : role === 'operator'
-          ? '沙盒运营机构（数据要素运营平台）'
-          : 'AI 算力出海企业（示范主体）'
-      }`,
+      '已成功登录监管工作台',
+      `当前接入机构：${agencyNames[agency] || agency}`,
       'success'
     );
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    showToast('已退出登录', '返回登录界面', 'info');
+    showToast('已安全退出', '已切断监管专线连接并安全登出', 'info');
   };
 
   // If not logged in, render the login view
   if (!isLoggedIn) {
     return (
-      <div className="min-h-screen bg-slate-900 flex flex-col font-sans">
+      <div className="min-h-screen bg-slate-950 flex flex-col font-sans">
         <LoginView onLogin={handleLogin} />
         <ToastContainer toasts={toasts} onClose={removeToast} />
       </div>
@@ -73,21 +79,30 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans antialiased selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-slate-100 text-slate-800 flex flex-col font-sans antialiased selection:bg-blue-600 selection:text-white">
       {/* Top Header */}
       <Header
-        currentRole={currentRole}
-        onRoleChange={(role) => {
-          setCurrentRole(role);
+        currentAgency={currentAgency}
+        onAgencyChange={(agency) => {
+          setCurrentAgency(agency);
           showToast(
-            '已切换监管工作台视角',
-            `已切换为: ${
-              role === 'government'
-                ? '政府监管部门'
-                : role === 'operator'
-                ? '沙盒运营机构'
-                : '入驻AI企业'
-            }`,
+            '已切换监管视角',
+            `已切换至: ${agencyNames[agency] || agency}`,
+            'info'
+          );
+        }}
+        jurisdictionLevel={jurisdictionLevel}
+        onJurisdictionChange={(level) => {
+          setJurisdictionLevel(level);
+          const levelLabels: Record<JurisdictionLevel, string> = {
+            ministry: '部级 · 全国一张图',
+            province: '省级 · 广东省/大湾区',
+            city: '市级 · 深圳市',
+            county: '县级 · 南山区',
+          };
+          showToast(
+            '已切换监管穿透层级',
+            `当前视角: ${levelLabels[level]}`,
             'info'
           );
         }}
@@ -100,76 +115,82 @@ export default function App() {
         {/* Left Navigation Sidebar */}
         <Sidebar
           activePage={activePage}
-          currentPage={activePage}
-          currentRole={currentRole}
           onNavigate={(pageId) => {
             setActivePage(pageId);
-            // Clear specific filters when navigating from sidebar
-            if (pageId !== 'enterprise') setSelectedEnterpriseId(null);
-            if (pageId !== 'cross-border') setSelectedTraceId(null);
-            if (pageId !== 'audit') setSelectedEvidenceId(null);
           }}
-          onPageChange={(pageId) => {
-            setActivePage(pageId);
-            if (pageId !== 'enterprise') setSelectedEnterpriseId(null);
-            if (pageId !== 'cross-border') setSelectedTraceId(null);
-            if (pageId !== 'audit') setSelectedEvidenceId(null);
-          }}
+          pendingRisksCount={17}
           isCollapsed={isSidebarCollapsed}
           onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         />
 
         {/* Center Main Content Page View */}
-        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-7 bg-slate-100/50">
-          <div className="max-w-[1720px] mx-auto w-full">
+        <main className="flex-1 overflow-y-auto p-4 sm:p-5 lg:p-6 bg-slate-100/70">
+          <div className="max-w-[1780px] mx-auto w-full">
             {activePage === 'overview' && (
               <OverviewPage
                 onShowToast={showToast}
                 onNavigate={(page) => setActivePage(page)}
-                onSelectEnterprise={(entId) => {
-                  setSelectedEnterpriseId(entId);
-                  setActivePage('enterprise');
-                }}
-                onSelectTrace={(traceId) => {
-                  setSelectedTraceId(traceId);
-                  setActivePage('cross-border');
-                }}
+                jurisdictionLevel={jurisdictionLevel}
+                currentAgency={currentAgency}
               />
             )}
 
-            {activePage === 'enterprise' && (
-              <EnterprisePage
+            {activePage === 'monitoring' && (
+              <MonitoringPage
                 onShowToast={showToast}
-                selectedEntId={selectedEnterpriseId}
+                onNavigate={(page) => setActivePage(page)}
+                initialFilter="all"
               />
             )}
 
-            {activePage === 'cross-border' && (
-              <CrossBorderTracePage
+            {activePage === 'fund-graph' && (
+              <FundGraphPage
                 onShowToast={showToast}
-                initialTraceId={selectedTraceId}
-                onJumpToAudit={(evidenceId) => {
-                  setSelectedEvidenceId(evidenceId);
-                  setActivePage('audit');
-                }}
+                onNavigate={(page) => setActivePage(page)}
+                initialTxId={focusTxId}
+                initialAddress={focusAddress}
               />
             )}
 
-            {activePage === 'risk' && (
-              <RiskEventsPage onShowToast={showToast} />
-            )}
-
-            {activePage === 'audit' && (
-              <AuditReportPage
+            {activePage === 'risk-alerts' && (
+              <RiskAlertsPage
                 onShowToast={showToast}
-                targetEvidenceId={selectedEvidenceId}
+                onNavigate={(page) => setActivePage(page)}
               />
             )}
 
-            {activePage === 'config' && (
-              <SandboxConfigPage
+            {activePage === 'investigation' && (
+              <InvestigationPage
                 onShowToast={showToast}
-                userRole={currentRole}
+                onNavigate={(page) => setActivePage(page)}
+              />
+            )}
+
+            {activePage === 'regulatory-reports' && (
+              <RegulatoryReportsPage
+                onShowToast={showToast}
+                onNavigate={(page) => setActivePage(page)}
+              />
+            )}
+
+            {activePage === 'data-ingestion' && (
+              <DataIngestionPage
+                onShowToast={showToast}
+                onNavigate={(page) => setActivePage(page)}
+              />
+            )}
+
+            {activePage === 'ai-intelligence' && (
+              <AiIntelligencePage
+                onShowToast={showToast}
+                onNavigate={(page) => setActivePage(page)}
+              />
+            )}
+
+            {activePage === 'audit-security' && (
+              <AuditSecurityPage
+                onShowToast={showToast}
+                onNavigate={(page) => setActivePage(page)}
               />
             )}
           </div>
